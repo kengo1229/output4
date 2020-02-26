@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo Application </title>
+  <link rel="stylesheet" href="dist/css/app.css">
+  <script src="https://use.fontawesome.com/e3ae05b8e6.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="main">
+    <h1 class="mainTitle">Todo Application</h1>
+    <p>入力フォーム上で「command(ctrl) + enter」でtodoが追加されます<br>
+      todoタスク上でダブルクリックで編集ができます。
+    </p>
+    <div id="app1">
+
+<!-- todo入力フォーム -->
+    <create-todo
+    v-model="val"
+    v-bind:errflg="errflg"
+    v-on:add-todo="addTodo"
+    >
+    </create-todo>
+<!-- リアルタイム検索 -->
+    <search-box
+    v-model="searchWord"
+    ></search-box>
+
+<!-- todoタスク -->
+    <transition-group name=fade tag="ul" class="list" >
+      <todo-task
+        v-for="todo in filteredTodo"
+        v-bind:key="todo.id"
+        v-bind:todo="todo"
+        v-on:done-todo="doneTodo"
+        v-on:delete-todo="deleteTodo"
+        v-on:open-edit-todo="openEditTodo"
+        v-on:close-edit-todo="closeEditTodo"
+      ></todo-task>
+    </transition-group>
+  </div>
+</div>
+
+
+<script src="dist/js/bundle.js"></script>
+</body>
+</html>
